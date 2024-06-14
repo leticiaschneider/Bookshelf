@@ -13,9 +13,10 @@ public class TestConfig {
 
 	@Autowired
 	private DBService dbService;
-	
-	@Bean
-	void instanceDB() {
-		this.dbService.instanceDB();
-	}
+
+    @Bean
+    DBService instanceDB() {
+        this.dbService.instanceDB();
+        return this.dbService;
+    }
 }
