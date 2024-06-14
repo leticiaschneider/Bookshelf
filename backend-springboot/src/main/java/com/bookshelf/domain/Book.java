@@ -24,6 +24,11 @@ public class Book implements Serializable {
 	protected Integer id;
 	protected String title;
 	protected String author;
+    private int publicationYear;
+    private String language;
+    private int pages;
+    private String genre;
+    private String coverImageUrl;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "STATUS")
@@ -37,12 +42,17 @@ public class Book implements Serializable {
 		super();
 	}
 	
-	public Book(Integer id, String title, String author) {
-		super();
+	public Book(int id, String title, String author, String publisher, String genre, int publicationYear, int pages, String language, String summary, String coverImageUrl) {
+        super();
 		this.id = id;
-		this.title = title;
-		this.author = author;
-	}
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.publicationYear = publicationYear;
+        this.pages = pages;
+        this.language = language;
+        this.coverImageUrl = coverImageUrl;
+    }
 
 	public Integer getId() {
 		return id;
@@ -82,6 +92,50 @@ public class Book implements Serializable {
 
 	public void setFormat(Set<Format> format) {
 		this.format = format;
+	}
+	
+	public int getPublicationYear() {
+		return publicationYear;
+	}
+
+	public void setPublicationYear(int publicationYear) {
+		this.publicationYear = publicationYear;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public int getPages() {
+		return pages;
+	}
+
+	public void setPages(int pages) {
+		this.pages = pages;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getCoverImageUrl() {
+		return coverImageUrl;
+	}
+
+	public void setCoverImageUrl(String coverImageUrl) {
+		this.coverImageUrl = coverImageUrl;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
