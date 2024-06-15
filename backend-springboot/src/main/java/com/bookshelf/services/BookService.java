@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bookshelf.domain.Book;
 import com.bookshelf.repositories.BookRepository;
+import com.bookshelf.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class BookService {
@@ -16,9 +17,7 @@ public class BookService {
 
 	public Book findById(Integer id) {
 		Optional<Book> obj = repository.findById(id);
-		return  obj.orElse(null);
-		
-//		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado! Id: " + id));
+		return obj.orElseThrow(() -> new ObjectNotFoundException("Object not found. ID: " + id));
 	}
 
 	public List<Book> findAll() {

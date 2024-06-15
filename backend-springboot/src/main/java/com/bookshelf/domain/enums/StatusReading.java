@@ -20,16 +20,16 @@ public enum StatusReading {
 	}
 	
 	public static StatusReading toEnum(Integer code) {
-		if ( code == null ) {
+		if(code == null) {
 			return null;
 		}
 		
-		for ( StatusReading value : StatusReading.values()) {
-			if (code.equals(value.getCode())) {
-				return value;
+		for(StatusReading x : StatusReading.values()) {
+			if(code.equals(x.getCode())) {
+				return x;
 			}
 		}
 		
-		throw new IllegalArgumentException("Invalid status.");
+		throw new IllegalArgumentException("Invalid status code: " + code);
 	}
 }
