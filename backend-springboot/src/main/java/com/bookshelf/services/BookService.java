@@ -56,4 +56,11 @@ public class BookService {
         return repository.save(book);
     }
 
+	public void delete(Integer id) {
+		Book book = repository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Book not exist with id: " + id));
+
+        repository.delete(book);
+	}
+
 }
