@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.bookshelf.domain.Book;
@@ -38,4 +39,11 @@ public class BookController {
 	public Book createEmployee(@Valid @RequestBody Book book) {
 		return service.createBook(book);
 	}
+	
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Book> update(@PathVariable Integer id, @Valid @RequestBody Book book) {
+	    Book updatedBook = service.update(id, book);
+	    return ResponseEntity.ok().body(updatedBook);
+	}
+
 }
