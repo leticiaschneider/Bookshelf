@@ -3,6 +3,7 @@ package com.bookshelf.domain;
 import java.util.Objects;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 import java.io.Serializable;
 
 import jakarta.persistence.CollectionTable;
@@ -12,6 +13,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 import com.bookshelf.domain.enums.*;
 
@@ -22,6 +24,7 @@ public class Book implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
+	@NotNull(message = "The title field is required")
 	protected String title;
 	protected String author;
     private int publicationYear;
@@ -32,11 +35,11 @@ public class Book implements Serializable {
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "STATUS")
-	protected Set<StatusReading> readingStatus = new HashSet<>(); // "Read", "Reading", "Want to Read"
+	protected Set<Integer> readingStatus = new HashSet<>(); // "Read", "Reading", "Want to Read"
 	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "FORMATS")
-	protected Set<Format> format = new HashSet<>();  // e.g., Hardcover, Paperback, eBook, Audiobook
+	protected Set<Integer> format = new HashSet<>();  // e.g., Hardcover, Paperback, eBook, Audiobook
 	
 	public Book() {
 		super();
@@ -52,6 +55,8 @@ public class Book implements Serializable {
         this.pages = pages;
         this.language = language;
         this.coverImageUrl = coverImageUrl;
+        AddReadingStatus(StatusReading.WANTTOREAD);
+        AddFormat(Format.HARDCOVER);
     }
 
 	public Integer getId() {
@@ -79,19 +84,19 @@ public class Book implements Serializable {
 	}
 
 	public Set<StatusReading> getReadingStatus() {
-		return readingStatus;
+		return readingStatus.stream().map(x -> StatusReading.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void setReadingStatus(Set<StatusReading> readingStatus) {
-		this.readingStatus = readingStatus;
+	public void AddReadingStatus(StatusReading readingStatus) {
+	    this.readingStatus.add(readingStatus.getCode());
 	}
 
-	public Set<Format> getFormat() {
-		return format;
+	public Set<Format> getFormats() {
+		return format.stream().map(x -> Format.toEnum(x)).collect(Collectors.toSet());
 	}
 
-	public void setFormat(Set<Format> format) {
-		this.format = format;
+	public void AddFormat(Format format) {
+		this.format.add(format.getCode());
 	}
 	
 	public int getPublicationYear() {
