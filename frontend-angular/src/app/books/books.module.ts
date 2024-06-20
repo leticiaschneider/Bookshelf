@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { BooksRoutingModule } from './books-routing.module';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { BookFormComponent } from './components/book-form/book-form.component';
   ],
   imports: [
     CommonModule,
+    HttpClientModule,
     BooksRoutingModule
   ]
 })

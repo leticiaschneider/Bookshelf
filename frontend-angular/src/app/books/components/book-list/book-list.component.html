@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table" *ngFor="let book of books">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -10,7 +10,7 @@
     <tbody>
       <tr>
         <th scope="row">1</th>
-        <td>Mark</td>
+        <td>{{ book.title }}</td>
         <td>Otto</td>
         <td>mdo</td>
       </tr>
