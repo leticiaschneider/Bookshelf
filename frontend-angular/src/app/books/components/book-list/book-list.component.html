@@ -1,29 +1,18 @@
-<table class="table" *ngFor="let book of books">
+<table class="table">
     <thead>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Title</th>
+        <th scope="col">Language</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Status</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let book of books">
       <tr>
-        <th scope="row">1</th>
-        <td>{{ book.title }}</td>
-        <td>Otto</td>
-        <td>mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td colspan="2">Larry the Bird</td>
-        <td>twitter</td>
+        <th scope="row">{{ book.title }}</th>
+        <td>{{ book.language }}</td>
+        <td>{{ book.genre }}</td>
+        <td>{{ book.readingStatus | statusReading }}</td>
       </tr>
     </tbody>
   </table>
