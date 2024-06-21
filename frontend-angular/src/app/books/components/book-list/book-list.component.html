@@ -1,15 +1,15 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">Title</th>
-        <th scope="col">Language</th>
-        <th scope="col">Genre</th>
-        <th scope="col">Status</th>
+        <th class="bg-transparent" scope="col">Title</th>
+        <th class="bg-transparent" scope="col">Language</th>
+        <th class="bg-transparent" scope="col">Genre</th>
+        <th class="bg-transparent" scope="col">Status</th>
       </tr>
     </thead>
-    <tbody *ngFor="let book of books">
-      <tr>
-        <th scope="row">{{ book.title }}</th>
+    <tbody class="tbody_book" *ngFor="let book of books">
+      <tr class="solid">
+        <td>{{ book.title }}</td>
         <td>{{ book.language }}</td>
         <td>{{ book.genre }}</td>
         <td>{{ book.readingStatus | statusReading }}</td>

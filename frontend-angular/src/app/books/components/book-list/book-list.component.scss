@@ -1,0 +1,23 @@
+.table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+
+    td {
+        border-top: thin solid;
+        border-bottom: thin solid;
+        background-color: #ffffff4a;
+        padding: 14px 10px;
+
+        &:first-child {
+            border-left: thin solid;
+            border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+        }
+    
+        &:last-child {
+            border-right: thin solid;
+            border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+        }
+    }
+}
