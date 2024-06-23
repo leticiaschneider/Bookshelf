@@ -5,6 +5,7 @@
         <th class="bg-transparent" scope="col">Language</th>
         <th class="bg-transparent" scope="col">Genre</th>
         <th class="bg-transparent" scope="col">Status</th>
+        <th class="bg-transparent"></th>
       </tr>
     </thead>
     <tbody class="tbody_book" *ngFor="let book of books">
@@ -13,6 +14,11 @@
         <td>{{ book.language }}</td>
         <td>{{ book.genre }}</td>
         <td>{{ book.readingStatus | statusReading }}</td>
+        <td class="d-flex justify-content-end">
+          <img class="icon mx-2" src="../../../../assets/icons/edit_icon.svg" alt="Editar" title="Editar" />
+          <img class="icon mx-2" src="../../../../assets/icons/delete_icon.svg" alt="Excluir" title="Excluir" />
+        </td>
+        
       </tr>
     </tbody>
   </table>
