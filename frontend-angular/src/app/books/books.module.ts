@@ -5,6 +5,7 @@ import { BooksRoutingModule } from './books-routing.module';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
 import { StatusReadingPipe } from '../pipes/status-reading.pipe';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { StatusReadingPipe } from '../pipes/status-reading.pipe';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     BooksRoutingModule
   ]
 })

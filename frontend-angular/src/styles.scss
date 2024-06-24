@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 
+$primary: #8fbe43;
+
 body {
     margin: 0;
     padding: 0;
     font-family: "Lora", serif !important;
     font-style: normal;
-    background-color: rgb(235, 231, 227) !important;
+    background-color: rgb(237, 233, 229) !important;
 }
