@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { BooksRoutingModule } from './books-routing.module';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookFormComponent } from './components/book-form/book-form.component';
+import { StatusReadingPipe } from '../pipes/status-reading.pipe';
 
 
 @NgModule({
   declarations: [
     BookListComponent,
-    BookFormComponent
+    BookFormComponent,
+    StatusReadingPipe
   ],
   imports: [
     CommonModule,
