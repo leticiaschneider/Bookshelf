@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Book } from '../../../model/book.model';
 import { BookService } from '../../../service/book.service';
 import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-book-list',
@@ -24,6 +25,25 @@ export class BookListComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  deleteBook(id: number | undefined): void {
+    if (id !== undefined) {
+      this.bookService.deleteBook(id)
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(
+          (response) => {
+            console.log('Book deleted successfully:', response);
+            // Aqui você pode adicionar lógica para atualizar a lista de livros ou realizar outra ação necessária após a exclusão.
+          },
+          (error) => {
+            console.error('Error deleting the book:', error);
+          }
+        );
+    } else {
+      console.error('Invalid ID provided for deletion.');
+    }
+  }
+  
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
