@@ -1,7 +1,7 @@
 <div class="container mt-4 px-5">
-  <header class="d-flex justify-content-between my-5">
-    <h1 class="display-6">BookShelf</h1>
-    <button type="button" class="btn btn-primary" [routerLink]="['/books/new']">Register New Book</button>
+  <header class="d-flex justify-content-between my-5 mb-2">
+    <h1 class="display-6 book_title" [routerLink]="['/books']">BookShelf</h1>
+    <button type="button" class="btn btn-primary mb-5" [routerLink]="['/books/new']" *ngIf="!showButton">Register New Book</button>
   </header>
   <router-outlet></router-outlet>
 </div>
