@@ -16,19 +16,19 @@ export class BookFormComponent implements OnDestroy {
   formats = Object.values(Format);
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private bookService: BookService) {}
+  constructor(private fb: FormBuilder, private bookService: BookService) { }
 
   ngOnInit(): void {
     this.bookForm = this.fb.group({
       title: ['', Validators.required],
-      author: [''],
+      author: [null],
       publicationYear: [null],
-      language: [''],
+      language: [null],
       pages: [null],
-      genre: [''],
+      genre: [null],
       coverImageUrl: [null],
-      readingStatus: [null],
-      formats: [null]
+      readingStatus: [''],
+      formats: [''],
     });
   }
 
@@ -38,8 +38,9 @@ export class BookFormComponent implements OnDestroy {
 
     if (this.bookForm.valid) {
       const bookData = this.bookForm.value;
-      bookData.readingStatus = [this.mapReadingStatusToCode(bookData.readingStatus)];
-      bookData.formats = [this.mapFormatToCode(bookData.formats)];
+
+      bookData.readingStatus = bookData.readingStatus !== '' ? [this.mapReadingStatusToCode(bookData.readingStatus)] : [];
+      bookData.formats = bookData.formats !== '' ? [this.mapFormatToCode(bookData.formats)] : [];
 
       this.bookService.saveBook(bookData)
         .pipe(takeUntil(this.unsubscribe$))
