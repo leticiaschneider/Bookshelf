@@ -1,7 +1,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th class="bg-transparent" scope="col">Title</th>
+      <th class="table-column-title bg-transparent" scope="col" (click)="sortData()">
+        Title
+        <img class="icon mx-2" src="../../../../assets/icons/sort_icon.svg" />
+      </th>
       <th class="bg-transparent" scope="col">Language</th>
       <th class="bg-transparent" scope="col">Genre</th>
       <th class="bg-transparent" scope="col">Status</th>
@@ -9,7 +12,7 @@
     </tr>
   </thead>
   <tbody class="tbody_book" *ngFor="let book of books">
-    <tr class="solid">
+    <tr>
       <td>{{ book.title }}</td>
       <td>{{ book.language }}</td>
       <td>{{ book.genre }}</td>

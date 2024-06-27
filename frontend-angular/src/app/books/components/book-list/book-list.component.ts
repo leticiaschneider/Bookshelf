@@ -14,6 +14,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   bookDataToDelete?: Book;
   hiddenModal: boolean = true;
   private unsubscribe$: Subject<void> = new Subject<void>();
+  sortDirection: boolean = true;
 
   constructor(private bookService: BookService) { }
 
@@ -39,6 +40,21 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   closeModal () {
     this.hiddenModal = true;
+  }
+
+  sortData(): void {
+    this.sortDirection = !this.sortDirection;
+    const direction = this.sortDirection ? 1 : -1;
+
+    this.books.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1 * direction;
+      } else if (a.title > b.title) {
+        return 1 * direction;
+      } else {
+        return 0;
+      }
+    });
   }
 
   deleteBook(): void {
