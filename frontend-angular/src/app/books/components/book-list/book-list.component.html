@@ -1,24 +1,43 @@
 <table class="table">
-    <thead>
-      <tr>
-        <th class="bg-transparent" scope="col">Title</th>
-        <th class="bg-transparent" scope="col">Language</th>
-        <th class="bg-transparent" scope="col">Genre</th>
-        <th class="bg-transparent" scope="col">Status</th>
-        <th class="bg-transparent"></th>
-      </tr>
-    </thead>
-    <tbody class="tbody_book" *ngFor="let book of books">
-      <tr class="solid">
-        <td>{{ book.title }}</td>
-        <td>{{ book.language }}</td>
-        <td>{{ book.genre }}</td>
-        <td>{{ book.readingStatus | statusReading }}</td>
-        <td class="d-flex justify-content-end">
-          <img class="icon mx-2" src="../../../../assets/icons/edit_icon.svg" alt="Editar" title="Editar" />
-          <img class="icon mx-2" src="../../../../assets/icons/delete_icon.svg" (click)="deleteBook(book.id)" alt="Excluir" title="Excluir" />
-        </td>
-        
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th class="bg-transparent" scope="col">Title</th>
+      <th class="bg-transparent" scope="col">Language</th>
+      <th class="bg-transparent" scope="col">Genre</th>
+      <th class="bg-transparent" scope="col">Status</th>
+      <th class="bg-transparent"></th>
+    </tr>
+  </thead>
+  <tbody class="tbody_book" *ngFor="let book of books">
+    <tr class="solid">
+      <td>{{ book.title }}</td>
+      <td>{{ book.language }}</td>
+      <td>{{ book.genre }}</td>
+      <td>{{ book.readingStatus | statusReading }}</td>
+      <td class="d-flex justify-content-end">
+        <img class="icon mx-2" src="../../../../assets/icons/edit_icon.svg" alt="Editar" title="Editar" />
+        <img class="icon mx-2" src="../../../../assets/icons/delete_icon.svg" (click)="openModal(book)" alt="Delete" title="Delete" />
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" tabindex="-1" [class.show]="!hiddenModal" [class.d-block]="!hiddenModal" [attr.aria-hidden]="hiddenModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete the book "{{ bookDataToDelete?.title }}"?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="deleteBook()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

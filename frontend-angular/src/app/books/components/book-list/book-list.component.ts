@@ -11,11 +11,17 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 })
 export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
+  bookDataToDelete?: Book;
+  hiddenModal: boolean = true;
   private unsubscribe$: Subject<void> = new Subject<void>();
 
   constructor(private bookService: BookService) { }
 
   ngOnInit(): void {
+    this.getBooks();
+  }
+
+  getBooks(): void {
     this.bookService.getBooks().subscribe(
       (data) => {
         this.books = data;
@@ -26,14 +32,24 @@ export class BookListComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteBook(id: number | undefined): void {
-    if (id !== undefined) {
-      this.bookService.deleteBook(id)
+  openModal(book: Book) {
+    this.bookDataToDelete = book;
+    this.hiddenModal = false;
+  }
+
+  closeModal () {
+    this.hiddenModal = true;
+  }
+
+  deleteBook(): void {
+    if (this.bookDataToDelete?.id !== undefined) {
+      this.bookService.deleteBook(this.bookDataToDelete.id)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (response) => {
+            this.hiddenModal = true;
+            this.getBooks();
             console.log('Book deleted successfully:', response);
-            // Aqui você pode adicionar lógica para atualizar a lista de livros ou realizar outra ação necessária após a exclusão.
           },
           (error) => {
             console.error('Error deleting the book:', error);
@@ -43,7 +59,7 @@ export class BookListComponent implements OnInit, OnDestroy {
       console.error('Invalid ID provided for deletion.');
     }
   }
-  
+
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
