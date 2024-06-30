@@ -11,14 +11,29 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 })
 export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
+  booksForList: Book[] = [];
+  bookDataToDelete?: Book;
+  hiddenModal: boolean = true;
   private unsubscribe$: Subject<void> = new Subject<void>();
+  sortDirection: boolean = true;
+  
+  paginator = {
+    currentPage: 1,
+    itemsPerPage: 7,
+    totalItems: 0
+  };
 
   constructor(private bookService: BookService) { }
 
   ngOnInit(): void {
+    this.getBooks();
+  }
+
+  getBooks(pageNumber = 1): void {
     this.bookService.getBooks().subscribe(
       (data) => {
         this.books = data;
+        this.paginator.totalItems = this.books.length;
       },
       (error) => {
         console.error('Error fetching books: ', error);
@@ -26,14 +41,49 @@ export class BookListComponent implements OnInit, OnDestroy {
     );
   }
 
-  deleteBook(id: number | undefined): void {
-    if (id !== undefined) {
-      this.bookService.deleteBook(id)
+  get paginatedBooks() {
+    const startIndex = (this.paginator.currentPage - 1) * this.paginator.itemsPerPage;
+    const endIndex = startIndex + this.paginator.itemsPerPage;
+    return this.books.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number): void {
+    this.paginator.currentPage = page;
+  }
+
+  openModal(book: Book) {
+    this.bookDataToDelete = book;
+    this.hiddenModal = false;
+  }
+
+  closeModal () {
+    this.hiddenModal = true;
+  }
+
+  sortData(): void {
+    this.sortDirection = !this.sortDirection;
+    const direction = this.sortDirection ? 1 : -1;
+
+    this.booksForList.sort((a, b) => {
+      if (a.title < b.title) {
+        return -1 * direction;
+      } else if (a.title > b.title) {
+        return 1 * direction;
+      } else {
+        return 0;
+      }
+    });
+  }
+
+  deleteBook(): void {
+    if (this.bookDataToDelete?.id !== undefined) {
+      this.bookService.deleteBook(this.bookDataToDelete.id)
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (response) => {
+            this.hiddenModal = true;
+            this.getBooks();
             console.log('Book deleted successfully:', response);
-            // Aqui você pode adicionar lógica para atualizar a lista de livros ou realizar outra ação necessária após a exclusão.
           },
           (error) => {
             console.error('Error deleting the book:', error);
@@ -43,7 +93,7 @@ export class BookListComponent implements OnInit, OnDestroy {
       console.error('Invalid ID provided for deletion.');
     }
   }
-  
+
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();

@@ -1,0 +1,13 @@
+.pagination {
+    &.disabled {
+        a {
+            cursor: default;
+            color: #b12e2e;
+
+            &.active {
+                background-color: #794141;
+                color: #d40f0f;
+            }
+        }
+    }
+}

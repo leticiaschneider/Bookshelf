@@ -2,6 +2,17 @@
     border-collapse: separate;
     border-spacing: 0 1em;
 
+    thead {
+        tr {
+            border-style: hidden;
+            border: transparent;
+            
+            .table-column-title {
+                cursor: pointer;
+            }
+        }
+    }
+
     td {
         border-top: thin solid;
         border-bottom: thin solid;

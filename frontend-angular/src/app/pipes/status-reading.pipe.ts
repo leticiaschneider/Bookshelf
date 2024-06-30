@@ -7,9 +7,9 @@ import { StatusReading } from '../model/book.model';
 export class StatusReadingPipe implements PipeTransform {
   
     private statusReadingMap: any = {
-    [StatusReading.Read]: 'Read',
-    [StatusReading.Reading]: 'Reading',
-    [StatusReading.WantToRead]: 'Want to Read'
+    [StatusReading.Read]: 'READ',
+    [StatusReading.Reading]: 'READING',
+    [StatusReading.WantToRead]: 'WANTTOREAD'
   };
 
   transform(value: string): string {

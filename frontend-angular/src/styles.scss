@@ -8,3 +8,12 @@ body {
     font-style: normal;
     background-color: rgb(237, 233, 229) !important;
 }
+
+.btn-primary {
+    background-color: #5c6bbd !important;
+    border: none !important;
+    
+    &:hover {
+        background-color: #6e7cc7 !important;
+    }
+}

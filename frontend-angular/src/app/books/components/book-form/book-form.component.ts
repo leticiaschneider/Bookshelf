@@ -4,6 +4,8 @@ import { Book, StatusReading, Format } from '../../../model/book.model';
 import { Subject } from 'rxjs/internal/Subject';
 import { BookService } from '../../../service/book.service';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-book-form',
@@ -16,7 +18,11 @@ export class BookFormComponent implements OnDestroy {
   formats = Object.values(Format);
   private unsubscribe$: Subject<void> = new Subject<void>();
 
-  constructor(private fb: FormBuilder, private bookService: BookService) { }
+  constructor(
+    private fb: FormBuilder,
+    private bookService: BookService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.bookForm = this.fb.group({
@@ -34,7 +40,6 @@ export class BookFormComponent implements OnDestroy {
 
   onSubmit(): void {
     const book: Book = this.bookForm.value;
-    console.log(book);
 
     if (this.bookForm.valid) {
       const bookData = this.bookForm.value;
@@ -46,6 +51,7 @@ export class BookFormComponent implements OnDestroy {
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe(
           (savedBook) => {
+            this.router.navigate(['/books']);
             console.log('Book saved successfully:', savedBook);
           },
           (error) => {
