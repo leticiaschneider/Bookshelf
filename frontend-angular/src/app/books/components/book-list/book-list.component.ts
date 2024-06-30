@@ -11,10 +11,17 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 })
 export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
+  booksForList: Book[] = [];
   bookDataToDelete?: Book;
   hiddenModal: boolean = true;
   private unsubscribe$: Subject<void> = new Subject<void>();
   sortDirection: boolean = true;
+  
+  paginator = {
+    currentPage: 1,
+    itemsPerPage: 7,
+    totalItems: 0
+  };
 
   constructor(private bookService: BookService) { }
 
@@ -22,15 +29,26 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.getBooks();
   }
 
-  getBooks(): void {
+  getBooks(pageNumber = 1): void {
     this.bookService.getBooks().subscribe(
       (data) => {
         this.books = data;
+        this.paginator.totalItems = this.books.length;
       },
       (error) => {
         console.error('Error fetching books: ', error);
       }
     );
+  }
+
+  get paginatedBooks() {
+    const startIndex = (this.paginator.currentPage - 1) * this.paginator.itemsPerPage;
+    const endIndex = startIndex + this.paginator.itemsPerPage;
+    return this.books.slice(startIndex, endIndex);
+  }
+
+  onPageChange(page: number): void {
+    this.paginator.currentPage = page;
   }
 
   openModal(book: Book) {
@@ -46,7 +64,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.sortDirection = !this.sortDirection;
     const direction = this.sortDirection ? 1 : -1;
 
-    this.books.sort((a, b) => {
+    this.booksForList.sort((a, b) => {
       if (a.title < b.title) {
         return -1 * direction;
       } else if (a.title > b.title) {
