@@ -34,7 +34,7 @@
             <label for="readingStatus" class="form-label">Reading Status</label>
             <select id="readingStatus" class="form-select" formControlName="readingStatus">
                 <option selected disabled value="">Choose an option..</option>
-                <option *ngFor="let status of readingStatuses" [value]="status">{{ status }}</option>
+                <option *ngFor="let status of readingStatuses" [value]="status | statusReading">{{ status | statusReading }}</option>
             </select>
         </div>
         <div class="col-md-6">

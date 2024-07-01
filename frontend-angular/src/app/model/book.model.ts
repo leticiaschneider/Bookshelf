@@ -12,9 +12,9 @@ export interface Book {
 }
 
 export enum StatusReading {
-  Read = 'Read',
-  Reading = 'Reading',
-  WantToRead = 'Want to Read'
+  Read = 'READ',
+  Reading = 'READING',
+  WantToRead = 'WANTTOREAD'
 }
 
 export enum Format {
