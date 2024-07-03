@@ -22,11 +22,10 @@
         </span>
       </td>
       <td class="d-flex justify-content-end">
-        <img class="icon mx-2" src="../../../../assets/icons/edit_icon.svg" alt="Editar" title="Editar" />
+        <img class="icon mx-2" src="../../../../assets/icons/edit_icon.svg" alt="Editar" title="Editar" (click)="editItem(book.id)" />
         <img class="icon mx-2" src="../../../../assets/icons/delete_icon.svg" (click)="openModal(book)" alt="Delete"
           title="Delete" />
       </td>
-
     </tr>
   </tbody>
 </table>

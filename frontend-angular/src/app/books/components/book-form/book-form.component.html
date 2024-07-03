@@ -27,14 +27,19 @@
             <input type="text" class="form-control" id="genre" formControlName="genre">
         </div>
         <div class="col-md-6">
+            <label for="formFile" class="form-label">Default file input example</label>
+            <input class="form-control" type="file" id="formFile" accept="image/*" (change)="onFileSelected($event)">
+        </div>
+        <!-- <div class="col-md-6">
             <label for="coverImageUrl" class="form-label">Cover Image URL</label>
             <input type="url" id="coverImageUrl" class="form-control" formControlName="coverImageUrl">
-        </div>
+        </div> -->
         <div class="col-md-6">
             <label for="readingStatus" class="form-label">Reading Status</label>
             <select id="readingStatus" class="form-select" formControlName="readingStatus">
                 <option selected disabled value="">Choose an option..</option>
-                <option *ngFor="let status of readingStatuses" [value]="status | statusReading">{{ status | statusReading }}</option>
+                <option *ngFor="let status of readingStatuses" [value]="status | statusReading">{{ status |
+                    statusReading }}</option>
             </select>
         </div>
         <div class="col-md-6">
