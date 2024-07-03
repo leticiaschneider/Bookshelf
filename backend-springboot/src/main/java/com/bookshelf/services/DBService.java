@@ -15,7 +15,7 @@ public class DBService {
 	private BookRepository bookrepository;
 	
 	public void instanceDB() {
-		Book book1 = new Book(0, "Jogos Vorazes", "Autor", null, null, 0, 0, null, null, null);
-		bookrepository.saveAll(Arrays.asList(book1));
+//		Book book1 = new Book(0, "Jogos Vorazes", "Autor", null, null, 0, 0, null, null, null);
+//		bookrepository.saveAll(Arrays.asList(book1));
 	}
 }
