@@ -1,12 +1,13 @@
 .pagination {
-    &.disabled {
-        a {
-            cursor: default;
-            color: #b12e2e;
+    .page-item {
+        .page-link {
+            color: #6e7cc7;
+            cursor: pointer;
+        }
 
-            &.active {
-                background-color: #794141;
-                color: #d40f0f;
+        &.disabled {
+            .page-link {
+                color: #c1c1c1;
             }
         }
     }

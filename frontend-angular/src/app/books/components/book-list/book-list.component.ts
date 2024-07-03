@@ -3,6 +3,7 @@ import { Book } from '../../../model/book.model';
 import { BookService } from '../../../service/book.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-list',
@@ -23,7 +24,10 @@ export class BookListComponent implements OnInit, OnDestroy {
     totalItems: 0
   };
 
-  constructor(private bookService: BookService) { }
+  constructor(
+    private bookService: BookService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.getBooks();
@@ -49,6 +53,10 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   onPageChange(page: number): void {
     this.paginator.currentPage = page;
+  }
+
+  editItem(id?: number) {
+    this.router.navigate(['/books/edit', id]);
   }
 
   openModal(book: Book) {

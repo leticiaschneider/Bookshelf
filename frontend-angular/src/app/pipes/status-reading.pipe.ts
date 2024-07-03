@@ -5,11 +5,11 @@ import { StatusReading } from '../model/book.model';
   name: 'statusReading'
 })
 export class StatusReadingPipe implements PipeTransform {
-  
-    private statusReadingMap: any = {
-    [StatusReading.Read]: 'READ',
-    [StatusReading.Reading]: 'READING',
-    [StatusReading.WantToRead]: 'WANTTOREAD'
+
+  private statusReadingMap: any = {
+    [StatusReading.Read]: 'Read',
+    [StatusReading.Reading]: 'Reading',
+    [StatusReading.WantToRead]: 'Want to Read'
   };
 
   transform(value: string): string {

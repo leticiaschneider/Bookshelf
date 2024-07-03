@@ -7,7 +7,6 @@ import { Book } from '../model/book.model';
   providedIn: 'root'
 })
 export class BookService {
-
   private apiUrl = 'http://localhost:8080/books';
   
   constructor(private http: HttpClient) { }
@@ -18,6 +17,14 @@ export class BookService {
 
   saveBook(book: Book): Observable<Book> {
     return this.http.post<Book>(this.apiUrl, book);
+  }
+
+  getBookById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  updateBook(id: number | null, book: Book): Observable<Book> {
+    return this.http.put<Book>(`${this.apiUrl}/${id}`, book);
   }
 
   deleteBook(id: number): Observable<any> {
