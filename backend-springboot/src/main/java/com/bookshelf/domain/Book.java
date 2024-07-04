@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 import java.io.Serializable;
 
 import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,21 +34,22 @@ public class Book implements Serializable {
     private String language;
     private int pages;
     private String genre;
+    @Column(name = "cover_image_url", columnDefinition = "LONGTEXT")
     private String coverImageUrl;
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "STATUS")
-	protected Set<Integer> readingStatus = new HashSet<>(); // "Read", "Reading", "Want to Read"
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "FORMATS")
-	protected Set<Integer> format = new HashSet<>();  // e.g., Hardcover, Paperback, eBook, Audiobook
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "reading_status")
+    private StatusReading readingStatus;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "format")
+    private Format format;
 	
 	public Book() {
 		super();
 	}
 	
-	public Book(int id, String title, String author, String publisher, String genre, int publicationYear, int pages, String language, String summary, String coverImageUrl) {
+	public Book(int id, String title, String author, String publisher, String genre, int publicationYear, int pages, String language, String summary, String coverImageUrl, StatusReading readingStatus, Format format) {
         super();
 		this.id = id;
         this.title = title;
@@ -55,9 +59,9 @@ public class Book implements Serializable {
         this.pages = pages;
         this.language = language;
         this.coverImageUrl = coverImageUrl;
-        AddReadingStatus(StatusReading.WANTTOREAD);
-        AddFormat(Format.HARDCOVER);
-    }
+        this.readingStatus = readingStatus;
+        this.format = format;
+	}
 
 	public Integer getId() {
 		return id;
@@ -83,21 +87,21 @@ public class Book implements Serializable {
 		this.author = author;
 	}
 
-	public Set<StatusReading> getReadingStatus() {
-		return readingStatus.stream().map(x -> StatusReading.toEnum(x)).collect(Collectors.toSet());
-	}
+	public StatusReading getReadingStatus() {
+        return readingStatus;
+    }
 
-	public void AddReadingStatus(StatusReading readingStatus) {
-	    this.readingStatus.add(readingStatus.getCode());
-	}
+    public void setReadingStatus(StatusReading readingStatus) {
+        this.readingStatus = readingStatus;
+    }
 
-	public Set<Format> getFormats() {
-		return format.stream().map(x -> Format.toEnum(x)).collect(Collectors.toSet());
-	}
+    public Format getFormat() {
+        return format;
+    }
 
-	public void AddFormat(Format format) {
-		this.format.add(format.getCode());
-	}
+    public void setFormat(Format format) {
+        this.format = format;
+    }
 	
 	public int getPublicationYear() {
 		return publicationYear;

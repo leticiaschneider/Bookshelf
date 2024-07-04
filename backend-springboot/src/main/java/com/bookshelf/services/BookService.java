@@ -46,12 +46,8 @@ public class BookService {
         book.setPages(bookDetails.getPages());
         book.setGenre(bookDetails.getGenre());
         book.setCoverImageUrl(bookDetails.getCoverImageUrl());
-
-        book.getReadingStatus().clear();
-        bookDetails.getReadingStatus().forEach(book::AddReadingStatus);
-
-        book.getFormats().clear();
-        bookDetails.getFormats().forEach(book::AddFormat);
+        book.setReadingStatus(bookDetails.getReadingStatus());
+        book.setFormat(bookDetails.getFormat());
 
         return repository.save(book);
     }
