@@ -17,7 +17,7 @@
       <td>{{ book.language }}</td>
       <td>{{ book.genre }}</td>
       <td>
-        <span class="badge bg-badged" *ngIf="book.readingStatus.length != 0">
+        <span class="badge bg-badged" *ngIf="book.readingStatus?.length != 0">
           {{ book.readingStatus | statusReading }}
         </span>
       </td>
@@ -30,9 +30,13 @@
   </tbody>
 </table>
 
-<app-pagination [currentPage]="paginator.currentPage" [totalItems]="paginator.totalItems"
+<app-pagination *ngIf="paginatedBooks.length > 0" [currentPage]="paginator.currentPage" [totalItems]="paginator.totalItems"
   [itemsPerPage]="paginator.itemsPerPage" (pageChange)="onPageChange($event)">
 </app-pagination>
+
+<div *ngIf="paginatedBooks.length <= 0" class="text-center bg-body-tertiary rounded p-4">
+  <p class="m-0">Currently, there are no books listed. Use the 'Register a new book' button to add some.</p>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" tabindex="-1" [class.show]="!hiddenModal" [class.d-block]="!hiddenModal"

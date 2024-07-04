@@ -37,11 +37,11 @@ public class Book implements Serializable {
     @Column(name = "cover_image_url", columnDefinition = "LONGTEXT")
     private String coverImageUrl;
     
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "reading_status")
     private StatusReading readingStatus;
     
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     @Column(name = "format")
     private Format format;
 	
