@@ -63,8 +63,8 @@ export class BookFormComponent implements OnDestroy {
     if (this.bookForm.valid) {
       const bookData = this.bookForm.value;
 
-      bookData.readingStatus = bookData.readingStatus !== '' ? [this.mapReadingStatusToCode(bookData.readingStatus)] : [];
-      bookData.formats = bookData.formats !== '' ? [this.mapFormatToCode(bookData.formats)] : [];
+      bookData.readingStatus = bookData.readingStatus !== '' ? this.mapReadingStatusToCode(bookData.readingStatus) : null;
+      bookData.formats = bookData.formats !== '' ? this.mapFormatToCode(bookData.formats) : null;
       
       if (this.bookId) {
         this.updateBookData(bookData);
