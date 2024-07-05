@@ -38,5 +38,11 @@
         .bg-badged {
             background-color: #5c6bbd;
         }
+
+        &.image {
+            img {
+                width: 50px;
+            }
+        }
     }
 }
