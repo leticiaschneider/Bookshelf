@@ -1,7 +1,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th class="table-column-title bg-transparent" scope="col" (click)="sortData()">
+      <td class="bg-transparent border" scope="col"></td>
+      <th class="bg-transparent" scope="col" (click)="sortData()">
         Title
         <img class="icon mx-2" src="../../../../assets/icons/sort_icon.svg" />
       </th>
@@ -13,15 +14,19 @@
   </thead>
   <tbody class="tbody_book" *ngFor="let book of paginatedBooks">
     <tr>
-      <td>{{ book.title }}</td>
-      <td>{{ book.language }}</td>
-      <td>{{ book.genre }}</td>
-      <td>
-        <span class="badge bg-badged" *ngIf="book.readingStatus?.length != 0">
+      <td class="image">
+        <img class="rounded" [src]="book.coverImageUrl">
+      </td>
+      <td class="pt-4">{{ book.title }}</td>
+      <td class="pt-4">{{ book.language ? book.language : '-' }}</td>
+      <td class="pt-4">{{ book.genre ? book.genre : '-' }}</td>
+      <td class="pt-4">
+        <span class="badge bg-badged" *ngIf="book.readingStatus">
           {{ book.readingStatus | statusReading }}
         </span>
+        <span *ngIf="!book.readingStatus">-</span>
       </td>
-      <td class="d-flex justify-content-end">
+      <td class="text-end pt-4">
         <img class="icon mx-2" src="../../../../assets/icons/edit_icon.svg" alt="Editar" title="Editar" (click)="editItem(book.id)" />
         <img class="icon mx-2" src="../../../../assets/icons/delete_icon.svg" (click)="openModal(book)" alt="Delete"
           title="Delete" />
