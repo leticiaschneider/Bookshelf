@@ -18,12 +18,13 @@
         <img class="rounded" [src]="book.coverImageUrl">
       </td>
       <td class="pt-4">{{ book.title }}</td>
-      <td class="pt-4">{{ book.language }}</td>
-      <td class="pt-4">{{ book.genre }}</td>
+      <td class="pt-4">{{ book.language ? book.language : '-' }}</td>
+      <td class="pt-4">{{ book.genre ? book.genre : '-' }}</td>
       <td class="pt-4">
-        <span class="badge bg-badged" *ngIf="book.readingStatus?.length != 0">
+        <span class="badge bg-badged" *ngIf="book.readingStatus">
           {{ book.readingStatus | statusReading }}
         </span>
+        <span *ngIf="!book.readingStatus">-</span>
       </td>
       <td class="text-end pt-4">
         <img class="icon mx-2" src="../../../../assets/icons/edit_icon.svg" alt="Editar" title="Editar" (click)="editItem(book.id)" />
