@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class BookFormComponent implements OnDestroy {
   bookForm!: FormGroup;
-  readingStatuses = Object.values(StatusReading);
+  readingStatus = Object.values(StatusReading);
   formats = Object.values(Format);
   coverImageUrl: string | ArrayBuffer | null = null;
   bookId: number | null = null;
@@ -54,7 +54,15 @@ export class BookFormComponent implements OnDestroy {
   loadBookData(id: number): void {
     this.bookService.getBookById(id).subscribe((book: Book) => {
       this.bookForm.patchValue(book);
+
+      this.bookForm.get('readingStatus')?.setValue(this.capitalizeFirstLetter(book.readingStatus));
+      this.bookForm.get('formats')?.setValue(this.capitalizeFirstLetter(book.formats));
     });
+  }
+
+  capitalizeFirstLetter(string: string): string {
+    if (!string) return '';
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
   }
 
   onSubmit(): void {
