@@ -30,7 +30,6 @@
             <label for="formFile" class="form-label">Cover Image URL</label>
             <input class="form-control" type="file" id="formFile" accept="image/*" (change)="onFileSelected($event)">
         </div>
-        {{ bookForm.get('formats')?.value }}
         <div class="col-md-6">
             <label for="readingStatus" class="form-label">Reading Status</label>
             <select id="readingStatus" class="form-select" formControlName="readingStatus">
