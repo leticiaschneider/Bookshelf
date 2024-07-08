@@ -39,8 +39,8 @@
             </select>
         </div>
         <div class="col-md-6">
-            <label for="formats" class="form-label">Formats</label>
-            <select id="formats" class="form-control" formControlName="formats">
+            <label for="format" class="form-label">Formats</label>
+            <select id="format" class="form-control" formControlName="format">
                 <option selected disabled value="">Choose an option..</option>
                 <option *ngFor="let format of formats" [value]="format">{{ format }}</option>
             </select>

@@ -47,7 +47,7 @@ export class BookFormComponent implements OnDestroy {
       genre: [null],
       coverImageUrl: [null],
       readingStatus: [''],
-      formats: [''],
+      format: [''],
     });
   }
 
@@ -56,7 +56,7 @@ export class BookFormComponent implements OnDestroy {
       this.bookForm.patchValue(book);
 
       this.bookForm.get('readingStatus')?.setValue(this.capitalizeFirstLetter(book.readingStatus));
-      this.bookForm.get('formats')?.setValue(this.capitalizeFirstLetter(book.formats));
+      this.bookForm.get('format')?.setValue(this.capitalizeFirstLetter(book.format));
     });
   }
 
@@ -72,7 +72,7 @@ export class BookFormComponent implements OnDestroy {
       const bookData = this.bookForm.value;
 
       bookData.readingStatus = bookData.readingStatus !== '' ? this.mapReadingStatusToCode(bookData.readingStatus) : null;
-      bookData.formats = bookData.formats !== '' ? this.mapFormatToCode(bookData.formats) : null;
+      bookData.format = bookData.format !== '' ? this.mapFormatToCode(bookData.format) : null;
       
       if (this.bookId) {
         this.updateBookData(bookData);

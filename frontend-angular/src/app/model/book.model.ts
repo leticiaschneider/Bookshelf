@@ -8,7 +8,7 @@ export interface Book {
   genre?: string;
   coverImageUrl?: string;
   readingStatus: StatusReading;
-  formats: Format;
+  format: Format;
 }
 
 export enum StatusReading {
