@@ -7,6 +7,7 @@ import { BookFormComponent } from './components/book-form/book-form.component';
 import { StatusReadingPipe } from '../pipes/status-reading.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './components/book-list/pagination/pagination.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { PaginationComponent } from './components/book-list/pagination/paginatio
   ],
   imports: [
     CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     BooksRoutingModule
   ]

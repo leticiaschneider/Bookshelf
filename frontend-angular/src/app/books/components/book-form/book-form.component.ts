@@ -19,6 +19,11 @@ export class BookFormComponent implements OnDestroy {
   coverImageUrl: string | ArrayBuffer | null = null;
   bookId: number | null = null;
   private unsubscribe$: Subject<void> = new Subject<void>();
+  errorObj = {
+    hasMessage: false,
+    message: "",
+    typeMessage: undefined as 'success' | 'warning' | 'error' | undefined
+  }
 
   constructor(
     private fb: FormBuilder,
@@ -67,37 +72,61 @@ export class BookFormComponent implements OnDestroy {
 
   onSubmit(): void {
     const book: Book = this.bookForm.value;
-    
+
     if (this.bookForm.valid) {
       const bookData = this.bookForm.value;
 
       bookData.readingStatus = bookData.readingStatus !== '' ? this.mapReadingStatusToCode(bookData.readingStatus) : null;
       bookData.format = bookData.format !== '' ? this.mapFormatToCode(bookData.format) : null;
-      
+
       if (this.bookId) {
         this.updateBookData(bookData);
       }
       else {
         this.saveBookData(bookData);
       }
-      
+
     } else {
       console.error('Invalid form. Please check the fields.');
+      this.errorObj.hasMessage = true;
+      this.errorObj.typeMessage = "error";
+      this.errorObj.message = 'Invalid form. Please check the fields.';
+
+      setTimeout(() => {
+        this.errorObj.hasMessage = false;
+        this.errorObj.message = '';
+      }, 3000);
     }
   }
 
   saveBookData(bookData: Book) {
     this.bookService.saveBook(bookData)
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe(
-      (savedBook) => {
-        this.router.navigate(['/books']);
-        console.log('Book saved successfully:', savedBook);
-      },
-      (error) => {
-        console.error('Error saving the book:', error);
-      }
-    );
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (savedBook) => {
+          this.router.navigate(['/books']);
+          console.log('Book saved successfully:', savedBook);
+          this.errorObj.hasMessage = true;
+          this.errorObj.typeMessage = "success";
+          this.errorObj.message = 'Book saved successfully.';
+
+          setTimeout(() => {
+            this.errorObj.hasMessage = false;
+            this.errorObj.message = '';
+          }, 3000);
+        },
+        (error) => {
+          console.error('Error saving the book:', error);
+          this.errorObj.hasMessage = true;
+          this.errorObj.typeMessage = "error";
+          this.errorObj.message = 'Error saving the book.';
+
+          setTimeout(() => {
+            this.errorObj.hasMessage = false;
+            this.errorObj.message = '';
+          }, 3000);
+        }
+      );
   }
 
   updateBookData(bookData: Book) {
@@ -141,7 +170,7 @@ export class BookFormComponent implements OnDestroy {
         throw new Error('Invalid format');
     }
   }
-  
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
 
