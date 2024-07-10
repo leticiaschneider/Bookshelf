@@ -37,4 +37,4 @@ Visit `http://localhost:8080/` in your browser to see the app in action.
 &nbsp;
 ## ✨ Contact
 
-Letícia Araújo Schneider - @leehschneider - leticia.schneider@gmail.com
+Letícia Araújo Schneider - leticia.schneider@gmail.com
