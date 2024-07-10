@@ -11,7 +11,7 @@ Bookshelf is a CRUD application for managing a book collection. The project cons
 - List all books
 - Update book information
 - Delete a book from the collection
-- Technologies Used
+
 <br />
 
 
