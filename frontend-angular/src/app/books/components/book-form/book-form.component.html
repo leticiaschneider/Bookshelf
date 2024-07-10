@@ -1,3 +1,5 @@
+<app-message [message]="errorObj.message" [type]="errorObj.typeMessage"></app-message>
+
 <div class="container mt-5 mb-5">
     <h4 class="text-center">Register new book</h4>
     <hr>
@@ -30,7 +32,6 @@
             <label for="formFile" class="form-label">Cover Image URL</label>
             <input class="form-control" type="file" id="formFile" accept="image/*" (change)="onFileSelected($event)">
         </div>
-        {{ bookForm.get('formats')?.value }}
         <div class="col-md-6">
             <label for="readingStatus" class="form-label">Reading Status</label>
             <select id="readingStatus" class="form-select" formControlName="readingStatus">
@@ -40,8 +41,8 @@
             </select>
         </div>
         <div class="col-md-6">
-            <label for="formats" class="form-label">Formats</label>
-            <select id="formats" class="form-control" formControlName="formats">
+            <label for="format" class="form-label">Formats</label>
+            <select id="format" class="form-control" formControlName="format">
                 <option selected disabled value="">Choose an option..</option>
                 <option *ngFor="let format of formats" [value]="format">{{ format }}</option>
             </select>

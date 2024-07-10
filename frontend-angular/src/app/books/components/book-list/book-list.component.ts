@@ -17,7 +17,12 @@ export class BookListComponent implements OnInit, OnDestroy {
   hiddenModal: boolean = true;
   private unsubscribe$: Subject<void> = new Subject<void>();
   sortDirection: boolean = true;
-  
+  errorObj = {
+    hasMessage: false,
+    message: "",
+    typeMessage: undefined as 'success' | 'warning' | 'error' | undefined
+  }
+
   paginator = {
     currentPage: 1,
     itemsPerPage: 7,
@@ -41,6 +46,14 @@ export class BookListComponent implements OnInit, OnDestroy {
       },
       (error) => {
         console.error('Error fetching books: ', error);
+        this.errorObj.hasMessage = true;
+        this.errorObj.typeMessage = "error";
+        this.errorObj.message = 'Error fetching books';
+
+        setTimeout(() => {
+          this.errorObj.hasMessage = false;
+          this.errorObj.message = '';
+        }, 3000);
       }
     );
   }
@@ -64,7 +77,7 @@ export class BookListComponent implements OnInit, OnDestroy {
     this.hiddenModal = false;
   }
 
-  closeModal () {
+  closeModal() {
     this.hiddenModal = true;
   }
 
@@ -92,13 +105,37 @@ export class BookListComponent implements OnInit, OnDestroy {
             this.hiddenModal = true;
             this.getBooks();
             console.log('Book deleted successfully:', response);
+            this.errorObj.hasMessage = true;
+            this.errorObj.typeMessage = "success";
+            this.errorObj.message = 'Book deleted successfully';
+
+            setTimeout(() => {
+              this.errorObj.hasMessage = false;
+              this.errorObj.message = '';
+            }, 3000);
           },
           (error) => {
             console.error('Error deleting the book:', error);
+            this.errorObj.hasMessage = true;
+            this.errorObj.typeMessage = "error";
+            this.errorObj.message = 'An error has occurred';
+
+            setTimeout(() => {
+              this.errorObj.hasMessage = false;
+              this.errorObj.message = '';
+            }, 3000);
           }
         );
     } else {
       console.error('Invalid ID provided for deletion.');
+      this.errorObj.hasMessage = true;
+      this.errorObj.typeMessage = "error";
+      this.errorObj.message = 'Invalid ID provided for deletion.';
+
+      setTimeout(() => {
+        this.errorObj.hasMessage = false;
+        this.errorObj.message = '';
+      }, 3000);
     }
   }
 
